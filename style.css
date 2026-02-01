@@ -1,0 +1,93 @@
+/* Estilos mínimos personalizados */
+
+.certame-btn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.certame-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15) !important;
+}
+
+.border-dashed {
+    border-style: dashed !important;
+}
+
+/* Ajustes para botões de escola */
+.school-btn {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.school-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Animações para progresso */
+.progress-bar-animated {
+    animation: progress-bar-stripes 1s linear infinite;
+}
+
+@keyframes progress-bar-stripes {
+    from { background-position: 1rem 0; }
+    to { background-position: 0 0; }
+}
+
+/* Classes para status */
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.status-pendente {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-enviado {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+/* Classes de percentual para ausentes */
+.percentage-badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 0.25rem;
+}
+
+.percentage-low {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.percentage-medium {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.percentage-high {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Ajustes para cards responsivos */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .table-responsive {
+        display: none;
+    }
+    
+    #summaryCards {
+        display: block !important;
+    }
+}
