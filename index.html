@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Sistema de Controle</title>
     
     <!-- Bootstrap 5 CSS -->
@@ -12,68 +12,68 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="style.css">
+    <!-- CSS Personalizado com versionamento -->
+    <link rel="stylesheet" href="style.css?v=1.0.1">
 </head>
 <body>
-    <div class="container-fluid py-3">
+    <div class="container py-3">
         <!-- Tela inicial de seleção -->
         <div id="homeScreen" class="text-center">
-            <div class="card border-0 bg-primary text-white mb-4">
+            <div class="card border-0 bg-primary text-white mb-4 shadow">
                 <div class="card-body py-4">
                     <h1 class="card-title mb-2"><i class="bi bi-clipboard-data me-2"></i>Sistema de Controle</h1>
                     <p class="card-text mb-0">Selecione o tipo de coleta de dados</p>
                 </div>
             </div>
             
-            <div class="row justify-content-center g-4 mt-4">
-                <div class="col-md-5">
-                    <div class="card border-0 shadow text-center p-4" id="ausentesBtn">
+            <div class="row justify-content-center g-3 mt-4">
+                <div class="col-12 col-md-5">
+                    <div class="card border-0 shadow text-center p-4 menu-card" id="ausentesBtn">
                         <i class="fas fa-user-times fa-3x mb-3 text-primary"></i>
                         <h3 class="h5 mb-2 text-dark">Controle de Ausentes</h3>
-                        <p class="text-muted mb-0">Coletar dados de candidatos ausentes</p>
+                        <p class="text-muted small mb-0">Coletar dados de candidatos ausentes</p>
                     </div>
                 </div>
                 
-                <div class="col-md-5">
-                    <div class="card border-0 shadow text-center p-4" id="correcoesBtn">
+                <div class="col-12 col-md-5">
+                    <div class="card border-0 shadow text-center p-4 menu-card" id="correcoesBtn">
                         <i class="fas fa-edit fa-3x mb-3 text-primary"></i>
                         <h3 class="h5 mb-2 text-dark">Correção de Dados</h3>
-                        <p class="text-muted mb-0">Coletar dados para correção</p>
+                        <p class="text-muted small mb-0">Coletar dados para correção</p>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- TELA DE CONTROLE DE AUSENTES (ORIGINAL COM BOOTSTRAP) -->
+        <!-- TELA DE CONTROLE DE AUSENTES -->
         <div id="ausentesScreen" class="d-none">
-            <button id="backToHome1" class="btn btn-secondary mb-3">
+            <button id="backToHome1" class="btn btn-outline-secondary mb-3">
                 <i class="fas fa-arrow-left me-2"></i> Voltar ao Início
             </button>
             
             <!-- Tela de seleção de certame -->
             <div id="selectionScreenAusentes">
-                <div class="card border-0 bg-primary text-white mb-4">
+                <div class="card border-0 bg-primary text-white mb-4 shadow">
                     <div class="card-body py-4 text-center">
                         <h1 class="card-title h3 mb-2"><i class="fas fa-clipboard-check me-2"></i>Controle de Ausentes</h1>
-                        <p class="card-text mb-0">Selecione o tipo de certame para iniciar o controle de presença</p>
+                        <p class="card-text mb-0">Selecione o tipo de certame</p>
                     </div>
                 </div>
                 
-                <div class="row justify-content-center g-4">
-                    <div class="col-md-5">
-                        <div class="card border-0 shadow text-center p-4 certame-btn" id="concursoBtn">
+                <div class="row justify-content-center g-3">
+                    <div class="col-12 col-md-5">
+                        <div class="card border-0 shadow text-center p-4 certame-card" id="concursoBtn">
                             <i class="fas fa-graduation-cap fa-3x mb-3 text-primary"></i>
                             <h3 class="h5 mb-2 text-dark">Concurso Público</h3>
-                            <p class="text-muted mb-0">Controle de ausentes para concurso público</p>
+                            <p class="text-muted small mb-0">Controle de ausentes para concurso</p>
                         </div>
                     </div>
                     
-                    <div class="col-md-5">
-                        <div class="card border-0 shadow text-center p-4 certame-btn" id="processoBtn">
+                    <div class="col-12 col-md-5">
+                        <div class="card border-0 shadow text-center p-4 certame-card" id="processoBtn">
                             <i class="fas fa-file-contract fa-3x mb-3 text-primary"></i>
                             <h3 class="h5 mb-2 text-dark">Processo Seletivo</h3>
-                            <p class="text-muted mb-0">Controle de ausentes para processo seletivo público</p>
+                            <p class="text-muted small mb-0">Controle de ausentes para processo</p>
                         </div>
                     </div>
                 </div>
@@ -81,12 +81,12 @@
             
             <!-- Tela principal do certame -->
             <div id="mainScreenAusentes" class="d-none">
-                <button id="backToSelectionBtn" class="btn btn-secondary mb-3">
+                <button id="backToSelectionBtn" class="btn btn-outline-secondary mb-3">
                     <i class="fas fa-arrow-left me-2"></i> Voltar à seleção
                 </button>
                 
                 <!-- Header -->
-                <div class="card border-0 bg-primary text-white mb-4">
+                <div class="card border-0 bg-primary text-white mb-4 shadow">
                     <div class="card-body py-4 text-center">
                         <h1 id="certameTitle" class="card-title h3 mb-2">Controle de Ausentes</h1>
                         <p id="certameSubtitle" class="card-text mb-0">Monitoramento em tempo real</p>
@@ -104,50 +104,50 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5 class="card-title mb-0">Progresso de preenchimento</h5>
                             <button id="resetButton" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash-alt me-1"></i> Limpar dados
+                                <i class="fas fa-trash-alt me-1"></i> Limpar
                             </button>
                         </div>
                         
                         <div class="mb-3">
                             <div class="progress mb-2" style="height: 12px;">
-                                <div id="progressFill" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                <div id="progressFill" class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
                             </div>
                             <div class="d-flex justify-content-between small text-muted">
-                                <span id="completedRooms">0 salas preenchidas</span>
-                                <span id="totalRooms">0 salas no total</span>
+                                <span id="completedRooms">0 salas</span>
+                                <span id="totalRooms">0 total</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Estatísticas gerais -->
-                <div class="row g-3 mb-4">
-                    <div class="col-md-4">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <h6 class="text-primary mb-3"><i class="fas fa-users me-2"></i> Total de Ausentes</h6>
-                                <div class="h4 text-primary" id="totalAbsent">0</div>
-                                <div class="text-muted">de <span id="totalCandidates">0</span> candidatos</div>
+                <div class="row g-2 mb-4">
+                    <div class="col-12 col-md-4">
+                        <div class="card h-100 border-0 shadow">
+                            <div class="card-body text-center p-3">
+                                <h6 class="text-primary small mb-2"><i class="fas fa-users me-1"></i> Ausentes</h6>
+                                <div class="h3 text-primary fw-bold mb-1" id="totalAbsent">0</div>
+                                <div class="text-muted small">de <span id="totalCandidates">0</span></div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="col-md-4">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <h6 class="text-primary mb-3"><i class="fas fa-chart-pie me-2"></i> Percentual Geral</h6>
-                                <div class="h4 text-primary" id="totalPercentage">0%</div>
-                                <div class="text-muted">de ausência no certame</div>
+                    <div class="col-12 col-md-4">
+                        <div class="card h-100 border-0 shadow">
+                            <div class="card-body text-center p-3">
+                                <h6 class="text-primary small mb-2"><i class="fas fa-chart-pie me-1"></i> Percentual</h6>
+                                <div class="h3 text-primary fw-bold mb-1" id="totalPercentage">0%</div>
+                                <div class="text-muted small">de ausência</div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="col-md-4">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <h6 class="text-primary mb-3"><i class="fas fa-school me-2"></i> Maior ausência</h6>
-                                <div class="h6" id="topAbsentSchool">-</div>
-                                <div class="text-muted" id="topAbsentPercentage">0% de ausência</div>
+                    <div class="col-12 col-md-4">
+                        <div class="card h-100 border-0 shadow">
+                            <div class="card-body text-center p-3">
+                                <h6 class="text-primary small mb-2"><i class="fas fa-school me-1"></i> Maior</h6>
+                                <div class="h6 fw-bold mb-1" id="topAbsentSchool">-</div>
+                                <div class="text-muted small" id="topAbsentPercentage">0%</div>
                             </div>
                         </div>
                     </div>
@@ -156,56 +156,49 @@
                 <!-- Resumo consolidado -->
                 <div class="card border-0 shadow mb-4" id="summarySection">
                     <div class="card-body">
-                        <h5 class="card-title text-center mb-4">
-                            <i class="fas fa-table me-2"></i> Resumo Consolidado por Escola e Turno
+                        <h5 class="card-title text-center mb-3">
+                            <i class="fas fa-table me-2"></i> Resumo por Escola
                         </h5>
                         
                         <!-- Tabela para desktop -->
                         <div class="table-responsive d-none d-md-block">
-                            <table class="table table-hover" id="summaryTable">
+                            <table class="table table-sm table-hover" id="summaryTable">
                                 <thead class="table-primary">
                                     <tr>
                                         <th>Escola</th>
                                         <th>Turno</th>
                                         <th>Salas</th>
-                                        <th>Candidatos</th>
-                                        <th>Ausentes</th>
-                                        <th>Percentual</th>
+                                        <th>Cand.</th>
+                                        <th>Aus.</th>
+                                        <th>%</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody id="summaryBody">
-                                    <!-- Os dados serão preenchidos dinamicamente -->
-                                </tbody>
+                                <tbody id="summaryBody"></tbody>
                             </table>
                         </div>
                         
                         <!-- Cards para mobile -->
-                        <div class="d-md-none" id="summaryCards">
-                            <!-- Os cards serão preenchidos dinamicamente -->
-                        </div>
+                        <div class="d-md-none" id="summaryCards"></div>
                     </div>
                 </div>
                 
                 <!-- Painel de seleção de escolas -->
                 <div class="card border-0 shadow mb-4" id="schoolsSelectionPanel">
                     <div class="card-body">
-                        <h5 class="card-title text-center mb-4">
-                            <i class="fas fa-school me-2"></i> Selecione uma Escola para Preencher
+                        <h5 class="card-title text-center mb-3">
+                            <i class="fas fa-school me-2"></i> Escolas
                         </h5>
                         
-                        <div id="schoolsGrid">
-                            <!-- Os botões das escolas serão preenchidos dinamicamente -->
-                        </div>
+                        <div id="schoolsGrid" class="schools-grid"></div>
                     </div>
                 </div>
                 
                 <!-- Mensagem quando nenhuma escola está selecionada -->
-                <div id="noSchoolSelected" class="card border-2 border-dashed text-center py-5 mb-4">
+                <div id="noSchoolSelected" class="card border-2 border-dashed text-center py-4 mb-4">
                     <div class="card-body">
-                        <i class="fas fa-mouse-pointer fa-3x text-muted mb-3"></i>
-                        <h5 class="card-title text-muted mb-2">Selecione uma escola acima</h5>
-                        <p class="card-text text-muted mb-0">Clique em uma escola para expandir e preencher os dados de ausentes</p>
+                        <i class="fas fa-mouse-pointer fa-2x text-muted mb-2"></i>
+                        <h5 class="card-title text-muted small">Selecione uma escola</h5>
                     </div>
                 </div>
             </div>
@@ -213,14 +206,14 @@
         
         <!-- TELA DE CORREÇÃO DE DADOS -->
         <div id="correcaoScreen" class="d-none">
-            <button id="backToHome2" class="btn btn-secondary mb-3">
+            <button id="backToHome2" class="btn btn-outline-secondary mb-3">
                 <i class="fas fa-arrow-left me-2"></i> Voltar ao Início
             </button>
             
-            <div class="card border-0 bg-primary text-white mb-4">
+            <div class="card border-0 bg-primary text-white mb-4 shadow">
                 <div class="card-body py-4 text-center">
-                    <h1 class="card-title mb-2"><i class="fas fa-edit me-2"></i>Correção de Dados de Candidatos</h1>
-                    <p class="card-text mb-0">Registro de dados para correção em ata</p>
+                    <h1 class="card-title mb-2"><i class="fas fa-edit me-2"></i>Correção de Dados</h1>
+                    <p class="card-text mb-0">Registro para correção em ata</p>
                 </div>
             </div>
             
@@ -228,48 +221,41 @@
             <div class="card border-0 shadow mb-4">
                 <div class="card-body">
                     <form id="correctionForm">
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label for="candidateName" class="form-label">Nome do Candidato *</label>
-                                <input type="text" class="form-control" id="candidateName" placeholder="Nome completo" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="candidateDocument" class="form-label">Documento *</label>
-                                <input type="text" class="form-control" id="candidateDocument" placeholder="CPF ou RG" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="candidateBirthDate" class="form-label">Data de Nascimento</label>
-                                <input type="date" class="form-control" id="candidateBirthDate">
-                            </div>
+                        <div class="mb-3">
+                            <label for="candidateName" class="form-label">Nome do Candidato *</label>
+                            <input type="text" class="form-control" id="candidateName" placeholder="Nome completo" required>
                         </div>
                         
-                        <div class="d-flex justify-content-between mt-4">
+                        <div class="mb-3">
+                            <label for="candidateDocument" class="form-label">Documento *</label>
+                            <input type="text" class="form-control" id="candidateDocument" placeholder="CPF ou RG" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="candidateBirthDate" class="form-label">Data de Nascimento</label>
+                            <input type="date" class="form-control" id="candidateBirthDate">
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
                             <button type="button" id="clearCorrectionForm" class="btn btn-outline-secondary">
-                                <i class="fas fa-eraser me-1"></i> Limpar Formulário
+                                <i class="fas fa-eraser me-1"></i> Limpar
                             </button>
-                            <div>
-                                <button type="submit" class="btn btn-success me-2">
-                                    <i class="fas fa-save me-1"></i> Salvar Localmente
-                                </button>
-                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save me-1"></i> Salvar
+                            </button>
                         </div>
                     </form>
                     
                     <!-- Lista de correções salvas -->
                     <div class="mt-5">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="mb-0"><i class="fas fa-list me-2"></i> Correções Salvas</h5>
-                            <button type="button" id="sendAllCorrections" class="btn btn-primary">
-                                <i class="fas fa-paper-plane me-1"></i> Enviar Todas
+                            <h5 class="mb-0 small"><i class="fas fa-list me-2"></i> Salvos</h5>
+                            <button type="button" id="sendAllCorrections" class="btn btn-primary btn-sm">
+                                <i class="fas fa-paper-plane me-1"></i> Enviar
                             </button>
                         </div>
                         
-                        <div id="correctionsList">
-                            <div class="text-center text-muted py-4">
-                                <i class="fas fa-inbox fa-2x mb-2"></i>
-                                <p>Nenhuma correção salva ainda</p>
-                            </div>
-                        </div>
+                        <div id="correctionsList" class="corrections-list"></div>
                         
                         <div class="text-end mt-3">
                             <button type="button" id="clearAllCorrections" class="btn btn-outline-danger btn-sm">
@@ -283,30 +269,26 @@
         
         <!-- TELA DE ENVIO EM PROGRESSO -->
         <div id="enviandoScreen" class="d-none">
-            <div class="card border-0 shadow mb-4">
+            <div class="card border-0 shadow">
                 <div class="card-body text-center py-5">
-                    <div class="mb-4">
-                        <i class="fas fa-paper-plane fa-3x text-primary mb-3"></i>
-                        <h3 class="card-title mb-3">Enviando Dados...</h3>
-                        <p class="text-muted mb-4">Aguarde enquanto os dados são enviados</p>
-                    </div>
+                    <i class="fas fa-paper-plane fa-3x text-primary mb-3"></i>
+                    <h3 class="h5 mb-3">Enviando Dados...</h3>
                     
                     <div class="mb-4">
-                        <div class="progress" style="height: 20px;">
-                            <div id="progressBarEnvio" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                        <div class="progress" style="height: 10px;">
+                            <div id="progressBarEnvio" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
                         </div>
-                        <div class="mt-2">
+                        <div class="mt-2 small">
                             <span id="progressText">0 de 0 enviados</span>
                         </div>
                     </div>
                     
                     <div id="envioConcluido" class="d-none">
-                        <div class="alert alert-success">
-                            <i class="fas fa-check-circle me-2"></i>
-                            <strong>Envio concluído com sucesso!</strong>
+                        <div class="alert alert-success py-2 small">
+                            <i class="fas fa-check-circle me-2"></i> Envio concluído!
                         </div>
-                        <button id="fecharEnvioBtn" class="btn btn-primary">
-                            <i class="fas fa-check me-1"></i> Fechar
+                        <button id="fecharEnvioBtn" class="btn btn-primary btn-sm">
+                            Fechar
                         </button>
                     </div>
                 </div>
@@ -314,22 +296,22 @@
         </div>
         
         <!-- Notificação -->
-        <div id="notification" class="toast position-fixed bottom-0 end-0 m-3" role="alert">
-            <div class="toast-header bg-success text-white">
-                <i class="fas fa-check-circle me-2"></i>
-                <strong class="me-auto">Sucesso</strong>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+        <div id="notification" class="toast position-fixed bottom-0 end-0 m-2" role="alert">
+            <div class="toast-header bg-success text-white py-1">
+                <i class="fas fa-check-circle me-1"></i>
+                <strong class="me-auto small">Sucesso</strong>
+                <button type="button" class="btn-close btn-close-white btn-sm" data-bs-dismiss="toast"></button>
             </div>
-            <div class="toast-body">
-                Dados salvos com sucesso!
+            <div class="toast-body small">
+                Dados salvos!
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle com Popper -->
+    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- JavaScript Personalizado -->
-    <script src="app.js"></script>
+    <!-- JavaScript com versionamento -->
+    <script src="app.js?v=1.0.1"></script>
 </body>
 </html>

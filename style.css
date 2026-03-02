@@ -1,65 +1,74 @@
-/* Estilos mínimos personalizados */
+/* Estilos personalizados - v1.0.1 */
 
-.certame-btn {
+/* Cards com hover */
+.menu-card, .certame-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
-.certame-btn:hover {
+.menu-card:hover, .certame-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15) !important;
 }
 
+/* Bordas tracejadas */
 .border-dashed {
     border-style: dashed !important;
 }
 
-/* Ajustes para botões de escola */
+/* Botões de escola */
 .school-btn {
     transition: transform 0.3s ease;
     cursor: pointer;
+    width: 100%;
+    text-align: left;
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px;
 }
 
 .school-btn:hover {
     transform: translateY(-2px);
+    border-color: #0d6efd;
 }
 
-/* Animações para progresso */
-.progress-bar-animated {
-    animation: progress-bar-stripes 1s linear infinite;
+.school-btn.active {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
 }
 
-@keyframes progress-bar-stripes {
-    from { background-position: 1rem 0; }
-    to { background-position: 0 0; }
+.school-btn.active small {
+    color: rgba(255,255,255,0.8) !important;
 }
 
-/* Classes para status */
-.status-badge {
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
-    font-weight: 500;
+/* Grid de escolas */
+.schools-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.status-pendente {
-    background-color: #fff3cd;
-    color: #856404;
+/* Seção expandida da escola */
+.school-expanded-section {
+    background-color: #f8f9fa;
+    border-left: 2px solid #0d6efd;
+    border-right: 2px solid #0d6efd;
+    border-bottom: 2px solid #0d6efd;
+    border-radius: 0 0 8px 8px;
+    padding: 15px;
+    margin-top: -2px;
 }
 
-.status-enviado {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-/* Classes de percentual para ausentes */
+/* Badges de percentual */
 .percentage-badge {
     display: inline-block;
-    padding: 0.125rem 0.5rem;
-    border-radius: 0.75rem;
-    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 12px;
+    font-size: 0.7rem;
     font-weight: 600;
-    margin-left: 0.25rem;
+    margin-left: 4px;
 }
 
 .percentage-low {
@@ -77,17 +86,85 @@
     color: #721c24;
 }
 
-/* Ajustes para cards responsivos */
+/* Lista de correções */
+.corrections-list .card {
+    border-left: 3px solid transparent;
+}
+
+.corrections-list .border-success {
+    border-left-color: #198754 !important;
+}
+
+/* Ajustes mobile */
 @media (max-width: 768px) {
-    .card {
-        margin-bottom: 1rem;
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    
+    .card-body {
+        padding: 1rem;
     }
     
     .table-responsive {
-        display: none;
+        overflow-x: auto;
     }
     
-    #summaryCards {
-        display: block !important;
+    .stat-value {
+        font-size: 1.5rem !important;
+    }
+    
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    /* Ajuste para os cards de estatística */
+    .row.g-2 {
+        margin: -0.25rem;
+    }
+    
+    .row.g-2 > [class*="col-"] {
+        padding: 0.25rem;
+    }
+    
+    /* Formulário de correção */
+    .form-label {
+        font-size: 0.85rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .form-control {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+    
+    /* Notificação */
+    .toast {
+        max-width: 200px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    h1.h3 {
+        font-size: 1.2rem;
+    }
+    
+    .card-title.h3 {
+        font-size: 1.1rem;
+    }
+    
+    .menu-card, .certame-card {
+        padding: 1.5rem 0.5rem !important;
+    }
+    
+    .fa-3x {
+        font-size: 2rem;
     }
 }

@@ -1,11 +1,14 @@
+// app.js - v1.0.1
+console.log('App carregado - versão 1.0.1');
+
 // 🔧 CONFIGURAÇÃO DO GOOGLE FORMS
 const CONFIG_GOOGLE_FORMS = {
     url: 'https://docs.google.com/forms/d/1gZSPeG5moRvzF82agYxfIRFL0TiR99yjobmT5MqkFb8/formResponse',
     
     entryIds: {
-        candidateName: 'entry.3647880',      // Nome do candidato
-        candidateDocument: 'entry.748521648', // Documento
-        candidateBirthDate: 'entry.1706514374'  // Data de nascimento
+        candidateName: 'entry.3647880',
+        candidateDocument: 'entry.748521648',
+        candidateBirthDate: 'entry.1706514374'
     }
 };
 
