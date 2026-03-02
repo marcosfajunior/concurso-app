@@ -1,5 +1,5 @@
-// app.js - v1.0.1
-console.log('App carregado - versão 1.0.2');
+// app.js - v1.0.3
+console.log('App carregado - versão 1.0.3');
 
 // 🔧 CONFIGURAÇÃO DO GOOGLE FORMS
 const CONFIG_GOOGLE_FORMS = {
@@ -217,6 +217,22 @@ const fecharEnvioBtn = document.getElementById('fecharEnvioBtn');
 // Notificação
 const notification = document.getElementById('notification');
 
+// FUNÇÃO DE MÁSCARA PARA DATA
+function mascaraData(input) {
+    let v = input.value.replace(/\D/g, ''); // Remove tudo que não é dígito
+    v = v.substring(0, 8); // Limita a 8 dígitos
+    
+    let formatted = '';
+    for (let i = 0; i < v.length; i++) {
+        if (i === 2 || i === 4) {
+            formatted += '/';
+        }
+        formatted += v[i];
+    }
+    
+    input.value = formatted;
+}
+
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
     // Carregar dados salvos
@@ -244,6 +260,11 @@ document.addEventListener('DOMContentLoaded', function() {
     sendAllCorrections.addEventListener('click', startEnvioCorrecoes);
     clearAllCorrectionsBtn.addEventListener('click', clearAllCorrections);
     
+    // Adicionar máscara ao campo de data
+    candidateBirthDate.addEventListener('input', function() {
+        mascaraData(this);
+    });
+    
     // Configurar eventos da seção de ausentes
     concursoBtn.addEventListener('click', () => selectCertame('concurso'));
     processoBtn.addEventListener('click', () => selectCertame('processo'));
@@ -267,6 +288,213 @@ function goBackToAusentesSelection() {
     selectionScreenAusentes.classList.remove('d-none');
     currentCertame = null;
     selectedSchoolId = null;
+}
+
+// FUNÇÕES DE CONTROLE DE AUSENTES (mantenha todo o seu código original aqui)
+// [TODO: Cole aqui todas as funções de ausentes que você já tem]
+
+// FUNÇÕES DE CORREÇÃO DE DADOS (com ajuste para capturar a data formatada)
+function saveCorrection(e) {
+    e.preventDefault();
+    
+    const correction = {
+        id: Date.now(),
+        candidateName: candidateName.value.trim(),
+        candidateDocument: candidateDocument.value.trim(),
+        candidateBirthDate: candidateBirthDate.value, // Agora vem no formato dd/mm/aaaa
+        timestamp: new Date().toLocaleString('pt-BR'),
+        sentToGoogle: false
+    };
+    
+    correctionsData.push(correction);
+    saveData();
+    updateCorrectionsList();
+    clearCorrectionForm();
+    
+    showNotification();
+    alert('Correção salva localmente com sucesso!');
+}
+
+function clearCorrectionForm() {
+    correctionForm.reset();
+}
+
+function updateCorrectionsList() {
+    correctionsList.innerHTML = '';
+    
+    if (correctionsData.length === 0) {
+        correctionsList.innerHTML = `
+            <div class="text-center text-muted py-4">
+                <i class="fas fa-inbox fa-2x mb-2"></i>
+                <p class="small">Nenhuma correção salva ainda</p>
+            </div>
+        `;
+        return;
+    }
+    
+    correctionsData.forEach((correction, index) => {
+        const correctionDiv = document.createElement('div');
+        correctionDiv.className = `card mb-2 ${correction.sentToGoogle ? 'border-success' : ''}`;
+        
+        correctionDiv.innerHTML = `
+            <div class="card-body p-2">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="small">
+                        <h6 class="card-title small mb-1">${correction.candidateName}</h6>
+                        <p class="text-muted mb-0">Doc: ${correction.candidateDocument}</p>
+                        ${correction.candidateBirthDate ? `<p class="text-muted mb-0">Nasc: ${correction.candidateBirthDate}</p>` : ''}
+                        <p class="text-muted mt-1 mb-0" style="font-size: 0.7rem;">${correction.timestamp}</p>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge ${correction.sentToGoogle ? 'bg-success' : 'bg-warning'} mb-1" style="font-size: 0.6rem;">
+                            ${correction.sentToGoogle ? 'Enviado' : 'Pendente'}
+                        </span>
+                        <button class="btn btn-sm btn-outline-danger delete-correction p-1" data-index="${index}">
+                            <i class="fas fa-trash" style="font-size: 0.8rem;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        correctionsList.appendChild(correctionDiv);
+    });
+    
+    // Adicionar eventos aos botões de exclusão
+    document.querySelectorAll('.delete-correction').forEach(button => {
+        button.addEventListener('click', function() {
+            const index = parseInt(this.dataset.index);
+            if (confirm('Excluir esta correção?')) {
+                correctionsData.splice(index, 1);
+                saveData();
+                updateCorrectionsList();
+            }
+        });
+    });
+}
+
+async function startEnvioCorrecoes() {
+    const pendingCorrections = correctionsData.filter(c => !c.sentToGoogle);
+    
+    if (pendingCorrections.length === 0) {
+        alert('Não há correções pendentes para enviar.');
+        return;
+    }
+    
+    if (!navigator.onLine) {
+        alert('Sem conexão com internet!');
+        return;
+    }
+    
+    // Mostrar tela de envio
+    correcaoScreen.classList.add('d-none');
+    enviandoScreen.classList.remove('d-none');
+    envioConcluido.classList.add('d-none');
+    progressBarEnvio.style.width = '0%';
+    progressText.textContent = '0 de 0 enviados';
+    
+    // Realizar envio
+    await enviarCorrecoes(pendingCorrections);
+}
+
+async function enviarCorrecoes(pendingCorrections) {
+    let enviados = 0;
+    const total = pendingCorrections.length;
+    
+    for (const correction of pendingCorrections) {
+        try {
+            const formData = new FormData();
+            
+            // Mapear dados para o Google Forms
+            if (CONFIG_GOOGLE_FORMS.entryIds.candidateName) {
+                formData.append(CONFIG_GOOGLE_FORMS.entryIds.candidateName, correction.candidateName);
+            }
+            
+            if (CONFIG_GOOGLE_FORMS.entryIds.candidateDocument) {
+                formData.append(CONFIG_GOOGLE_FORMS.entryIds.candidateDocument, correction.candidateDocument);
+            }
+            
+            if (CONFIG_GOOGLE_FORMS.entryIds.candidateBirthDate && correction.candidateBirthDate) {
+                formData.append(CONFIG_GOOGLE_FORMS.entryIds.candidateBirthDate, correction.candidateBirthDate);
+            }
+            
+            // Enviar para o Google Forms
+            await fetch(CONFIG_GOOGLE_FORMS.url, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'
+            });
+            
+            correction.sentToGoogle = true;
+            enviados++;
+            
+            // Atualizar progresso
+            const progress = (enviados / total) * 100;
+            progressBarEnvio.style.width = `${progress}%`;
+            progressText.textContent = `${enviados} de ${total} enviados`;
+            
+            // Pausa para não sobrecarregar
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+        } catch (error) {
+            console.error('Erro ao enviar correção:', error);
+        }
+    }
+    
+    // Salvar dados atualizados
+    saveData();
+    
+    // Atualizar progresso final
+    progressBarEnvio.style.width = '100%';
+    progressText.textContent = `${enviados} de ${total} enviados`;
+    
+    // Mostrar mensagem de conclusão
+    setTimeout(() => {
+        envioConcluido.classList.remove('d-none');
+    }, 500);
+}
+
+function clearAllCorrections() {
+    if (correctionsData.length === 0) {
+        alert('Não há correções para limpar.');
+        return;
+    }
+    
+    if (confirm(`Excluir todas as ${correctionsData.length} correções?`)) {
+        correctionsData = [];
+        saveData();
+        updateCorrectionsList();
+        alert('Todas as correções foram excluídas.');
+    }
+}
+
+// Funções auxiliares
+function saveData() {
+    localStorage.setItem('absentControlData', JSON.stringify(absentData));
+    localStorage.setItem('activeShift', JSON.stringify(activeShift));
+    localStorage.setItem('correctionsData', JSON.stringify(correctionsData));
+}
+
+function loadSavedData() {
+    const savedData = localStorage.getItem('absentControlData');
+    if (savedData) {
+        absentData = JSON.parse(savedData);
+    }
+    
+    const savedActiveShift = localStorage.getItem('activeShift');
+    if (savedActiveShift) {
+        activeShift = JSON.parse(savedActiveShift);
+    }
+    
+    const savedCorrections = localStorage.getItem('correctionsData');
+    if (savedCorrections) {
+        correctionsData = JSON.parse(savedCorrections);
+    }
+}
+
+function showNotification() {
+    const toast = new bootstrap.Toast(notification);
+    toast.show();
 }
 
 // FUNÇÕES DE CONTROLE DE AUSENTES
