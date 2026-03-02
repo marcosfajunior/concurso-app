@@ -1,5 +1,5 @@
 // app.js - v1.0.1
-console.log('App carregado - versão 1.0.1');
+console.log('App carregado - versão 1.0.2');
 
 // 🔧 CONFIGURAÇÃO DO GOOGLE FORMS
 const CONFIG_GOOGLE_FORMS = {

@@ -1,4 +1,4 @@
-/* Estilos personalizados - v1.0.1 */
+/* Estilos personalizados - v1.0.2 */
 
 /* Cards com hover */
 .menu-card, .certame-card {
@@ -95,6 +95,70 @@
     border-left-color: #198754 !important;
 }
 
+/* Cards de resumo por escola - MOBILE */
+#summaryCards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+#summaryCards .card {
+    margin: 0;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #dee2e6 !important;
+}
+
+#summaryCards .card-header {
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+#summaryCards .card-header h6 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #0d6efd;
+}
+
+#summaryCards .card-body {
+    padding: 15px;
+}
+
+#summaryCards .card-body .row {
+    margin: 0 -5px;
+}
+
+#summaryCards .card-body [class*="col-"] {
+    padding: 0 5px;
+}
+
+#summaryCards .card-body small.text-muted {
+    display: block;
+    font-size: 0.7rem;
+    margin-bottom: 2px;
+}
+
+#summaryCards .card-body p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+#summaryCards .card-body .badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+}
+
+#summaryCards .border-top {
+    border-top: 1px solid #dee2e6 !important;
+    margin-top: 8px;
+    padding-top: 8px;
+}
+
 /* Ajustes mobile */
 @media (max-width: 768px) {
     .container {
@@ -108,6 +172,8 @@
     
     .table-responsive {
         overflow-x: auto;
+        margin: 0;
+        padding: 0;
     }
     
     .stat-value {
@@ -128,6 +194,21 @@
         padding: 0.25rem;
     }
     
+    /* Cards de estatística */
+    .card.h-100 .card-body {
+        padding: 12px 8px;
+    }
+    
+    .card.h-100 h6 {
+        font-size: 0.8rem;
+        margin-bottom: 8px;
+    }
+    
+    .card.h-100 .h3 {
+        font-size: 1.3rem;
+        margin-bottom: 4px;
+    }
+    
     /* Formulário de correção */
     .form-label {
         font-size: 0.85rem;
@@ -143,6 +224,16 @@
     .toast {
         max-width: 200px;
         font-size: 0.8rem;
+    }
+    
+    /* Seção de resumo */
+    #summarySection .card-body {
+        padding: 15px 10px;
+    }
+    
+    #summarySection h5 {
+        font-size: 1rem;
+        margin-bottom: 15px;
     }
 }
 
@@ -166,5 +257,22 @@
     
     .fa-3x {
         font-size: 2rem;
+    }
+    
+    /* Ajuste fino para cards de resumo */
+    #summaryCards .card-body {
+        padding: 12px 8px;
+    }
+    
+    #summaryCards .card-body .row {
+        margin: 0 -3px;
+    }
+    
+    #summaryCards .card-body [class*="col-"] {
+        padding: 0 3px;
+    }
+    
+    #summaryCards .card-body p {
+        font-size: 0.85rem;
     }
 }
